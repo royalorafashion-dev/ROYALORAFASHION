@@ -3,182 +3,335 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Royalora Fashion | Premium Manufacturer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Royal Ora Fashion | Premium Clothing Manufacturer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #111;
-            --accent: #25D366; /* WhatsApp Green */
-            --bg: #fdfdfd;
-            --text: #333;
+            --primary: #000000;
+            --accent: #25D366; /* WhatsApp */
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
         body { background: var(--bg); color: var(--text); }
 
-        /* Navbar */
+        /* --- NAVIGATION --- */
         nav {
+            background: #fff; padding: 1rem 5%; 
             display: flex; justify-content: space-between; align-items: center;
-            padding: 1rem 5%; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
-        .brand { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; text-transform: uppercase; }
-        .contact-info { display: flex; gap: 20px; font-size: 0.9rem; align-items: center; }
-        .contact-item { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+        .logo { font-size: 1.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .logo span { color: #666; font-size: 1rem; display: block; font-weight: 400; margin-top: -5px; }
         
-        /* Hero */
-        .hero {
-            text-align: center; padding: 80px 20px; background: linear-gradient(to bottom, #eee, #fff);
+        .contact-btn {
+            background: var(--primary); color: #fff; padding: 10px 25px; 
+            border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 10px; transition: 0.3s;
         }
-        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
-        .hero p { color: #666; max-width: 600px; margin: 0 auto; }
+        .contact-btn:hover { background: #333; transform: scale(1.05); }
 
-        /* Grid */
-        .container { max-width: 1200px; margin: 0 auto; padding: 50px 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        /* --- HERO SECTION --- */
+        header {
+            text-align: center; padding: 80px 20px; background: #fff;
+            border-bottom: 1px solid #eee;
+        }
+        header h1 { font-size: 3rem; margin-bottom: 15px; }
+        header p { color: #666; font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
 
-        /* Product Card */
+        /* --- CONTROLS (Search & Filter) --- */
+        .controls {
+            padding: 30px 5%; display: flex; flex-wrap: wrap; gap: 20px; 
+            justify-content: center; background: #fff; margin-bottom: 20px;
+        }
+        .search-box {
+            padding: 12px 20px; border: 2px solid #eee; border-radius: 50px; 
+            width: 300px; outline: none; transition: 0.3s;
+        }
+        .search-box:focus { border-color: var(--primary); }
+
+        .filter-btn {
+            padding: 10px 20px; border: none; background: #eee; 
+            border-radius: 50px; cursor: pointer; font-weight: 600; transition: 0.3s;
+        }
+        .filter-btn.active, .filter-btn:hover { background: var(--primary); color: #fff; }
+
+        /* --- PRODUCT GRID --- */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px 80px; }
+        .grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 30px; 
+        }
+
+        /* --- CARD DESIGN --- */
         .card {
-            background: #fff; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: 0.3s;
-            display: flex; flex-direction: column;
+            background: var(--card-bg); border-radius: 15px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03); transition: transform 0.3s ease;
+            display: flex; flex-direction: column; border: 1px solid #f0f0f0;
         }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        
-        /* Image Placeholder Area */
-        .img-box {
-            height: 250px; background: #eee; display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
-        }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
-        
-        .details { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .title { font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; }
-        .gsm-badge { 
-            background: #000; color: #fff; display: inline-block; 
-            padding: 2px 8px; font-size: 0.7rem; border-radius: 4px; margin-bottom: 10px; width: fit-content;
-        }
-        .desc { font-size: 0.9rem; color: #666; margin-bottom: 20px; flex-grow: 1; }
-        
-        /* Buttons */
-        .btn-whatsapp {
-            background: var(--accent); color: white; text-decoration: none;
-            padding: 12px; text-align: center; border-radius: 6px; font-weight: bold;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            transition: 0.2s; cursor: pointer; border: none; width: 100%;
-        }
-        .btn-whatsapp:hover { background: #1ebc57; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
 
-        /* Footer */
-        footer { background: #111; color: white; text-align: center; padding: 40px; margin-top: 50px; }
+        .card-img-placeholder {
+            height: 280px; background: #f4f4f4; display: flex; align-items: center; justify-content: center;
+            color: #aaa; font-size: 3rem; position: relative;
+        }
+        .card-img-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* Floating Badge */
+        .badge {
+            position: absolute; top: 15px; right: 15px; background: #fff;
+            padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
 
-        /* Mobile Adjustments */
+        .card-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-title { font-size: 1.3rem; margin-bottom: 5px; font-weight: 700; }
+        .card-subtitle { color: #777; font-size: 0.9rem; margin-bottom: 15px; font-weight: 500; }
+        
+        .specs { list-style: none; margin-bottom: 20px; font-size: 0.9rem; color: #555; }
+        .specs li { margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .specs i { color: var(--primary); font-size: 0.8rem; }
+
+        .colors { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px; }
+        .color-dot { width: 15px; height: 15px; border-radius: 50%; border: 1px solid #ddd; }
+
+        .btn-order {
+            margin-top: auto; background: var(--accent); color: white; border: none;
+            padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            text-decoration: none; transition: 0.2s;
+        }
+        .btn-order:hover { background: #1ebc57; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #111; color: #fff; padding: 50px 20px; text-align: center;
+        }
+        .footer-info p { margin: 10px 0; color: #888; }
+        
         @media (max-width: 768px) {
-            .contact-info { display: none; } /* Hide top contact on mobile, show in footer */
-            .hero h1 { font-size: 2rem; }
+            header h1 { font-size: 2rem; }
+            .controls { flex-direction: column; align-items: stretch; }
+            .search-box { width: 100%; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="brand">Royalora Fashion</div>
-        <div class="contact-info">
-            <div class="contact-item">
-                <i class="fa-solid fa-phone"></i> +91 96627 26807
-            </div>
-            <div class="contact-item">
-                <i class="fa-solid fa-envelope"></i> contact@royalora.com
-            </div>
+        <div class="logo">
+            ROYAL ORA FASHION
+            <span>Premium Manufacturer</span>
         </div>
+        <a href="tel:+919662726807" class="contact-btn">
+            <i class="fa-solid fa-phone"></i> +91 96627 26807
+        </a>
     </nav>
 
-    <div class="hero">
-        <h1>Premium Wholesale Apparel</h1>
-        <p>Direct Manufacturer of High GSM Cotton, French Terry, and Polos.</p>
+    <header>
+        <h1>Wholesale Catalog</h1>
+        <p>Direct Manufacturer of Premium Cotton, French Terry, and Corporate Apparel.</p>
+    </header>
+
+    <div class="controls">
+        <input type="text" class="search-box" id="searchInput" placeholder="Search products...">
+        <div style="display: flex; gap: 10px; overflow-x: auto;">
+            <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+            <button class="filter-btn" onclick="filterProducts('Oversized')">Oversized</button>
+            <button class="filter-btn" onclick="filterProducts('Polo')">Polos</button>
+            <button class="filter-btn" onclick="filterProducts('Regular')">Regular Fit</button>
+        </div>
     </div>
 
     <div class="container">
-        <h2 style="margin-bottom: 30px; text-align: center;">Our Catalog</h2>
-        <div class="grid" id="product-grid">
+        <div class="grid" id="productGrid">
             </div>
     </div>
 
     <footer>
-        <h2>Royalora Fashion</h2>
-        <p>Managed by Jyot | 24IC02IT012</p>
-        <br>
-        <p><i class="fa-solid fa-phone"></i> +91 96627 26807</p>
+        <h2 style="margin-bottom: 20px;">ROYAL ORA FASHION</h2>
+        <div class="footer-info">
+            <p>Owner: Jyot (24IC02IT012)</p>
+            <p>Contact: +91 96627 26807</p>
+            <p>Email: contact@royalorafashion.com</p>
+            <br>
+            <p>&copy; 2026 Royal Ora Fashion. All rights reserved.</p>
+        </div>
     </footer>
 
     <script>
-        // DATA: This is where we store your product info (Mock Database)
+        /* DATABASE 
+           Based on your uploaded screenshots/PDF content.
+        */
         const products = [
             {
-                title: "Oversized T-Shirt",
-                gsm: "180 GSM",
-                desc: "100% Cotton, Supercombed, Premium Red Label Fabric. Available in Black & White.",
-                img: "oversized_180.png" // Rename your screenshot to this
+                id: 1,
+                name: "180 GSM Oversized Tshirt",
+                category: "Oversized",
+                desc: "100% Cotton Supercombed, Premium Red Label Fabric.",
+                colors: ["Black", "White"],
+                specs: ["180 GSM", "100% Cotton", "Oversized Fit"],
+                img: "images/oversized_180.png"
             },
             {
-                title: "French Terry Heavyweight",
-                gsm: "240 GSM",
-                desc: "Bio-Washed, Heavy Gauge, Premium Quality. 12+ Colors available.",
-                img: "french_terry_240.png"
+                id: 2,
+                name: "240 GSM French Terry",
+                category: "Oversized",
+                desc: "Heavyweight, Bio-washed, Premium Quality.",
+                colors: ["Black", "White", "Maroon", "Off-White", "Beige", "Lavender", "Brown", "Rose Pink", "Charcoal", "Army Green", "Powder Blue", "Red"],
+                specs: ["240 GSM", "French Terry", "Heavy Gauge"],
+                img: "images/french_terry_240.png"
             },
             {
-                title: "Premium Polo",
-                gsm: "220 GSM",
-                desc: "Honeycomb Weave, 100% Cotton, Most Premium Finish. Corporate ready.",
-                img: "polo_premium.png"
+                id: 3,
+                name: "210 GSM French Terry",
+                category: "Oversized",
+                desc: "Premium Quality Bio-Washed Oversized Tshirt.",
+                colors: ["Black", "White", "Lavender", "Beige", "Red", "Sage Green", "Brown", "Off-White", "Orange", "Navy"],
+                specs: ["210 GSM", "French Terry", "Bio-Washed"],
+                img: "images/french_terry_210.png"
             },
             {
-                title: "Boxy Fit Streetwear",
-                gsm: "180 GSM",
-                desc: "Drop Shoulder, Boxy Fit, Trendy Streetwear cut. Supercombed.",
-                img: "boxy_fit.png"
+                id: 4,
+                name: "Boxy Fit Drop Shoulder",
+                category: "Oversized",
+                desc: "Streetwear special. 100% Cotton Supercombed.",
+                colors: ["White", "Black"],
+                specs: ["180 GSM", "Boxy Fit", "Red Label Fabric"],
+                img: "images/boxy_fit.png"
             },
             {
-                title: "Sublimation Tee",
-                gsm: "200 GSM",
-                desc: "Cotton Feel Polyester. Perfect for all-over printing.",
-                img: "sublimation.png"
+                id: 5,
+                name: "Premium Polo T-Shirt",
+                category: "Polo",
+                desc: "Most Premium Honeycomb Polo. Supercombed Red Label.",
+                colors: ["White", "Black", "Navy", "Maroon"],
+                specs: ["220 GSM", "Honeycomb Weave", "100% Cotton"],
+                img: "images/polo_premium.png"
+            },
+            {
+                id: 6,
+                name: "Cotton Metty Polo",
+                category: "Polo",
+                desc: "Durable Pique Knit. 88% Cotton, 12% Polyester.",
+                colors: ["Black", "White", "Grey", "Charcoal", "Navy", "Maroon"],
+                specs: ["220 GSM", "Matty Fabric", "Standard Fit"],
+                img: "images/polo_metty.png"
+            },
+            {
+                id: 7,
+                name: "True Bio-Washed Round Neck",
+                category: "Regular",
+                desc: "Supercombed Premium Quality Red Label Fabric.",
+                colors: ["Black", "White", "Maroon", "Mustard", "Red", "Bottle Green", "Beige", "Royal Blue", "Bhagwa", "Grey", "Lavender", "Sky", "Navy"],
+                specs: ["180 GSM", "True Bio-Wash", "100% Cotton"],
+                img: "images/bio_true.png"
+            },
+            {
+                id: 8,
+                name: "Non-Bio Wash Round Neck",
+                category: "Regular",
+                desc: "Regular Tshirt. 88% Cotton, 12% Polyester.",
+                colors: ["Black", "White", "Off-White", "Red", "Brown", "Navy", "Maroon", "Charcoal", "Rose Pink"],
+                specs: ["180 GSM", "Regular Finish", "Budget Friendly"],
+                img: "images/bio_regular.png"
+            },
+            {
+                id: 9,
+                name: "Sublimation Tshirt",
+                category: "Regular",
+                desc: "Cotton Feel Polyester. Premium Quality Sarina Knitting.",
+                colors: ["White"],
+                specs: ["200 GSM", "Polyester", "Print Ready"],
+                img: "images/sublimation.png"
             }
         ];
 
-        const grid = document.getElementById('product-grid');
+        const grid = document.getElementById('productGrid');
+        const searchInput = document.getElementById('searchInput');
 
-        // Function to load products
-        products.forEach(product => {
-            const card = document.createElement('div');
-            card.className = 'card';
+        // Function to Generate Color Dots
+        function getColorDots(colors) {
+            if(!colors) return '';
+            // Show max 5 colors then a "+X" badge
+            let html = colors.slice(0, 6).map(c => {
+                let bg = c.toLowerCase();
+                if(bg === 'white' || bg === 'off-white') return `<div class="color-dot" style="background:${bg}; border:1px solid #ccc;" title="${c}"></div>`;
+                return `<div class="color-dot" style="background:${bg};" title="${c}"></div>`;
+            }).join('');
             
-            // Note: If image doesn't exist, it shows a grey box
-            card.innerHTML = `
-                <div class="img-box">
-                    <img src="images/${product.img}" alt="${product.title}" onerror="this.style.display='none'">
-                </div>
-                <div class="details">
-                    <div class="gsm-badge">${product.gsm}</div>
-                    <div class="title">${product.title}</div>
-                    <div class="desc">${product.desc}</div>
-                    <button class="btn-whatsapp" onclick="orderOnWhatsapp('${product.title}')">
-                        <i class="fa-brands fa-whatsapp"></i> Inquiry / Order
-                    </button>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
-
-        // WhatsApp Function
-        function orderOnWhatsapp(item) {
-            const phone = "919662726807";
-            const text = `Hi Royalora Fashion, I am interested in ordering: ${item}`;
-            const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank');
+            if(colors.length > 6) {
+                html += `<span style="font-size:10px; color:#666; align-self:center;">+${colors.length - 6}</span>`;
+            }
+            return html;
         }
 
-        console.log("System Check: Jyot 24IC02IT012 - Online");
+        // Render Products
+        function renderProducts(data) {
+            grid.innerHTML = "";
+            data.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "card";
+                card.innerHTML = `
+                    <div class="card-img-placeholder">
+                        <span class="badge">${p.specs[0]}</span>
+                        <img src="${p.img}" alt="${p.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\\'fa-solid fa-shirt\\'></i>'">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">${p.name}</div>
+                        <div class="card-subtitle">${p.desc}</div>
+                        <ul class="specs">
+                            ${p.specs.map(s => `<li><i class="fa-solid fa-check"></i> ${s}</li>`).join('')}
+                        </ul>
+                        <div class="colors">
+                            ${getColorDots(p.colors)}
+                        </div>
+                        <button class="btn-order" onclick="whatsappOrder('${p.name}')">
+                            <i class="fa-brands fa-whatsapp"></i> Buy / Inquiry
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // WhatsApp Logic
+        function whatsappOrder(productName) {
+            const phone = "919662726807";
+            const text = `Hi Royal Ora Fashion, I am interested in: ${productName}. Please send details.`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // Search & Filter Logic
+        function filterProducts(cat) {
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if(cat === 'all') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category === cat);
+                renderProducts(filtered);
+            }
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(term) || 
+                p.desc.toLowerCase().includes(term)
+            );
+            renderProducts(filtered);
+        });
+
+        // Initial Load
+        renderProducts(products);
+
+        console.log("Jyot 24IC02IT012 - System Active");
     </script>
 </body>
 </html>
