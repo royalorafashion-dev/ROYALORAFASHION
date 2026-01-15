@@ -7,291 +7,297 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #000;       /* Luxury Black */
-            --secondary: #333;
-            --accent: #25D366;     /* WhatsApp Green */
-            --bg: #f9f9f9;
+            --primary: #000;
+            --accent: #25D366; /* WhatsApp Green */
+            --bg: #fdfdfd;
             --white: #fff;
             --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
-        body { background: var(--bg); color: var(--secondary); padding-top: 70px; }
+        body { background: var(--bg); color: #333; padding-top: 70px; }
 
         /* --- NAVIGATION --- */
         nav {
-            background: var(--white); padding: 15px 5%; 
+            background: var(--white); padding: 0 5%; height: 70px;
             display: flex; justify-content: space-between; align-items: center;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
         }
-        .logo { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); cursor: pointer; }
-        .logo span { font-size: 0.7rem; display: block; font-weight: 400; color: #666; letter-spacing: 2px; }
+        .logo { font-size: 1.4rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
+        .logo span { font-size: 0.6rem; display: block; font-weight: 400; color: #666; letter-spacing: 2px; }
         
-        .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #555; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
+        /* Navigation Links */
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links a { text-decoration: none; color: #555; font-weight: 600; font-size: 0.9rem; transition: 0.3s; position: relative; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .nav-links a.active::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background: var(--primary); }
 
-        /* Mobile Menu Toggle */
         .mobile-menu { display: none; font-size: 1.5rem; cursor: pointer; }
 
-        /* --- SECTIONS --- */
-        .section { display: none; animation: fadeIn 0.5s ease-in-out; padding-bottom: 50px; }
-        .section.active { display: block; }
+        /* --- SECTIONS (PAGES) --- */
+        .page-view { display: none; animation: fadeIn 0.4s ease-out; padding-bottom: 60px; }
+        .page-view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- HOME --- */
-        header { text-align: center; padding: 60px 20px; background: var(--white); border-bottom: 1px solid #eee; margin-bottom: 30px; }
-        header h1 { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary); }
-        header p { color: #666; font-size: 1.1rem; max-width: 700px; margin: 0 auto; }
-
-        /* Controls */
-        .controls { max-width: 1200px; margin: 0 auto 30px; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
-        .search-input { padding: 12px 20px; border: 2px solid #ddd; border-radius: 50px; width: 300px; outline: none; }
-        .search-input:focus { border-color: var(--primary); }
-        .btn-filter { padding: 10px 20px; border: none; background: #eee; border-radius: 50px; cursor: pointer; font-weight: 600; transition: 0.3s; }
-        .btn-filter.active, .btn-filter:hover { background: var(--primary); color: var(--white); }
-
-        /* Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        /* --- HEADERS --- */
+        header { text-align: center; padding: 50px 20px; background: var(--white); border-bottom: 1px solid #eee; margin-bottom: 30px; }
+        header h1 { font-size: 2.5rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        header p { color: #666; font-size: 1rem; max-width: 600px; margin: 0 auto; }
         
-        /* Product Card */
-        .card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #f0f0f0; display: flex; flex-direction: column; }
+        /* Banner for Home */
+        .hero-banner {
+            background: #111; color: white; text-align: center; padding: 80px 20px; margin-bottom: 40px;
+        }
+        .hero-banner h1 { font-size: 3rem; margin-bottom: 15px; }
+        .hero-banner button { background: white; color: black; border: none; padding: 12px 30px; font-weight: bold; cursor: pointer; border-radius: 50px; margin-top: 20px; transition: 0.3s; }
+        .hero-banner button:hover { transform: scale(1.05); }
+
+        /* --- PRODUCT GRID --- */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        
+        /* Cards */
+        .card { background: var(--white); border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #f0f0f0; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
         
         .card-img { height: 280px; background: #f4f4f4; display: flex; align-items: center; justify-content: center; position: relative; }
         .card-img img { width: 100%; height: 100%; object-fit: cover; }
-        .badge { position: absolute; top: 15px; right: 15px; background: var(--white); padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .badge { position: absolute; top: 15px; right: 15px; background: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
         .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; color: var(--primary); }
-        .card-desc { font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.5; flex-grow: 1; }
+        .card-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 5px; }
+        .card-specs { list-style: none; margin-bottom: 15px; font-size: 0.85rem; color: #555; }
+        .card-specs li { margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
         
-        .specs { list-style: none; margin-bottom: 15px; font-size: 0.85rem; color: #555; }
-        .specs li { margin-bottom: 5px; display: flex; align-items: center; gap: 8px; }
-
-        .btn-buy { background: var(--accent); color: var(--white); text-decoration: none; padding: 12px; border-radius: 6px; font-weight: bold; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; border: none; width: 100%; cursor: pointer; }
+        .btn-buy { background: var(--accent); color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: auto; }
         .btn-buy:hover { background: #1ebc57; }
 
-        /* --- ABOUT & CONTACT --- */
-        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
-        .box { background: var(--white); padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        .box h2 { margin-bottom: 20px; font-size: 2rem; color: var(--primary); }
+        /* --- CONTACT STYLES --- */
+        .info-box { max-width: 800px; margin: 40px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
         .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
-        .form-input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; }
-        .btn-submit { background: var(--primary); color: var(--white); width: 100%; padding: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; }
+        .btn-submit { background: var(--primary); color: white; width: 100%; padding: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
 
-        /* Footer */
         footer { background: #111; color: #fff; text-align: center; padding: 50px 20px; margin-top: 50px; }
-        .footer-links a { color: #888; margin: 0 10px; text-decoration: none; }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .nav-links { display: none; }
             .mobile-menu { display: block; }
-            header h1 { font-size: 2rem; }
+            .hero-banner h1 { font-size: 2rem; }
+            nav { justify-content: space-between; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo" onclick="showPage('home')">
+        <div class="logo" onclick="goTo('home')">
             ROYAL ORA FASHION
             <span>PREMIUM MANUFACTURER</span>
         </div>
+        
         <ul class="nav-links">
-            <li><a href="#" onclick="showPage('home')" id="link-home" class="active">Catalog</a></li>
-            <li><a href="#" onclick="showPage('about')" id="link-about">About Us</a></li>
-            <li><a href="#" onclick="showPage('contact')" id="link-contact">Contact</a></li>
+            <li><a href="#" onclick="goTo('home')" id="nav-home" class="active">Home</a></li>
+            <li><a href="#" onclick="goTo('oversized')" id="nav-oversized">Oversized</a></li>
+            <li><a href="#" onclick="goTo('polo')" id="nav-polo">Polos</a></li>
+            <li><a href="#" onclick="goTo('regular')" id="nav-regular">Regular Fit</a></li>
+            <li><a href="#" onclick="goTo('about')" id="nav-about">About</a></li>
+            <li><a href="#" onclick="goTo('contact')" id="nav-contact">Contact</a></li>
         </ul>
-        <div class="mobile-menu"><i class="fa-solid fa-bars"></i></div>
+        <div class="mobile-menu" onclick="alert('Switch to Desktop for full menu')">
+            <i class="fa-solid fa-bars"></i>
+        </div>
     </nav>
 
-    <div id="home" class="section active">
+    <div id="home" class="page-view active">
+        <div class="hero-banner">
+            <h1>Premium Wholesale Apparel</h1>
+            <p>Direct Manufacturer of 240 GSM French Terry & Corporate Polos</p>
+            <button onclick="goTo('oversized')">VIEW CATALOG</button>
+        </div>
+        
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 30px;">Featured Products</h2>
+            <div class="grid" id="grid-featured"></div>
+        </div>
+    </div>
+
+    <div id="oversized" class="page-view">
         <header>
-            <h1>Wholesale Collection</h1>
-            <p>Direct Manufacturer of High-GSM Cotton, French Terry, and Corporate Apparel.</p>
+            <h1>Oversized Collection</h1>
+            <p>Streetwear essentials. 180 GSM to 240 GSM French Terry.</p>
         </header>
-
-        <div class="controls">
-            <input type="text" class="search-input" id="search" placeholder="Search (e.g., Polo, 240 GSM)...">
-            <button class="btn-filter active" onclick="filter('all', this)">All</button>
-            <button class="btn-filter" onclick="filter('Oversized', this)">Oversized</button>
-            <button class="btn-filter" onclick="filter('Polo', this)">Polos</button>
-            <button class="btn-filter" onclick="filter('Regular', this)">Regular</button>
-        </div>
-
-        <div class="grid" id="product-grid">
-            </div>
-    </div>
-
-    <div id="about" class="section">
         <div class="container">
-            <div class="box">
-                <h2>About Royal Ora</h2>
-                <p style="line-height: 1.8; color: #555;">
-                    <strong>Royal Ora Fashion</strong> is a leading clothing manufacturer specializing in premium quality knits and streetwear essentials. 
-                    Based in India, we supply high-GSM fabrics and finished garments to wholesalers and clothing brands across the country.
-                </p>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
-                    <div>
-                        <h3 style="color: var(--primary); margin-bottom: 10px;">Our Specialty</h3>
-                        <ul style="list-style: none; color: #555;">
-                            <li><i class="fa-solid fa-check" style="color: var(--accent);"></i> 100% Supercombed Cotton</li>
-                            <li><i class="fa-solid fa-check" style="color: var(--accent);"></i> Heavy Gauge French Terry</li>
-                            <li><i class="fa-solid fa-check" style="color: var(--accent);"></i> Bio-Washed & Pre-Shrunk</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 style="color: var(--primary); margin-bottom: 10px;">Why Us?</h3>
-                        <ul style="list-style: none; color: #555;">
-                            <li><i class="fa-solid fa-check" style="color: var(--accent);"></i> Direct Manufacturer Pricing</li>
-                            <li><i class="fa-solid fa-check" style="color: var(--accent);"></i> Ready Stock Availability</li>
-                            <li><i class="fa-solid fa-check" style="color: var(--accent);"></i> Premium "Red Label" Quality</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <div class="grid" id="grid-oversized"></div>
         </div>
     </div>
 
-    <div id="contact" class="section">
+    <div id="polo" class="page-view">
+        <header>
+            <h1>Premium Polos</h1>
+            <p>Corporate & Casual. Honeycomb Weave & Matty Fabrics.</p>
+        </header>
         <div class="container">
-            <div class="box">
-                <h2>Contact Us</h2>
-                <p style="margin-bottom: 30px; color: #666;">Ready to place a bulk order? Send us a direct inquiry via WhatsApp.</p>
-                
-                <div class="form-group">
-                    <label>Name / Brand</label>
-                    <input type="text" id="c-name" class="form-input" placeholder="Enter your name">
-                </div>
-                <div class="form-group">
-                    <label>Message</label>
-                    <textarea id="c-msg" class="form-input" rows="5" placeholder="I am interested in..."></textarea>
-                </div>
-                <button class="btn-submit" onclick="sendInquiry()">
-                    <i class="fa-brands fa-whatsapp"></i> Send to WhatsApp (+91 96627 26807)
-                </button>
+            <div class="grid" id="grid-polo"></div>
+        </div>
+    </div>
 
-                <div style="margin-top: 40px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
-                    <p><strong><i class="fa-solid fa-phone"></i> Phone:</strong> +91 96627 26807</p>
-                    <p><strong><i class="fa-solid fa-envelope"></i> Email:</strong> contact@royalorafashion.com</p>
+    <div id="regular" class="page-view">
+        <header>
+            <h1>Regular Fit & Basics</h1>
+            <p>Bio-Washed Round Necks & Sublimation Tees.</p>
+        </header>
+        <div class="container">
+            <div class="grid" id="grid-regular"></div>
+        </div>
+    </div>
+
+    <div id="about" class="page-view">
+        <div class="info-box">
+            <h1>About Royal Ora</h1>
+            <p style="margin-top: 20px; line-height: 1.6; color: #555;">
+                Royal Ora Fashion is a dedicated clothing manufacturer specializing in high-quality knitted garments. 
+                We handle the entire production process to ensure our "Red Label" quality standards are met for every single piece.
+            </p>
+            <div style="display: flex; gap: 20px; margin-top: 30px; text-align: center;">
+                <div style="flex:1; padding: 20px; background: #f9f9f9; border-radius: 10px;">
+                    <i class="fa-solid fa-layer-group" style="font-size: 2rem; color: var(--primary);"></i>
+                    <h3>High GSM</h3>
+                    <p>Up to 240 GSM Fabrics</p>
+                </div>
+                <div style="flex:1; padding: 20px; background: #f9f9f9; border-radius: 10px;">
+                    <i class="fa-solid fa-industry" style="font-size: 2rem; color: var(--primary);"></i>
+                    <h3>Direct Factory</h3>
+                    <p>No Middlemen</p>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="contact" class="page-view">
+        <div class="info-box">
+            <h1>Contact Us</h1>
+            <p style="margin-bottom: 30px;">Send a direct WhatsApp inquiry for bulk orders.</p>
+            <div class="form-group">
+                <input type="text" id="c-name" placeholder="Your Name / Brand">
+            </div>
+            <div class="form-group">
+                <textarea id="c-msg" rows="5" placeholder="I am interested in..."></textarea>
+            </div>
+            <button class="btn-submit" onclick="sendInquiry()">
+                <i class="fa-brands fa-whatsapp"></i> Send to WhatsApp (+91 96627 26807)
+            </button>
         </div>
     </div>
 
     <footer>
-        <h3 style="margin-bottom: 10px;">ROYAL ORA FASHION</h3>
-        <div class="footer-links">
-            <a href="#" onclick="showPage('home')">Home</a>
-            <a href="#" onclick="showPage('about')">About</a>
-            <a href="#" onclick="showPage('contact')">Contact</a>
-        </div>
-        <p style="margin-top: 20px; font-size: 0.8rem; color: #555;">&copy; 2026 Royal Ora Fashion. All Rights Reserved.</p>
+        <p>&copy; 2026 Royal Ora Fashion. Premium Manufacturer.</p>
     </footer>
 
     <script>
-        // --- 1. PRODUCT DATA (From your PDFs) ---
+        // --- COMPLETE PRODUCT DATABASE (NO DUPLICATES) ---
         const products = [
-            {
-                name: "180 GSM Oversized Tshirt",
-                category: "Oversized",
-                desc: "100% Cotton Supercombed, Premium Red Label Fabric.",
-                specs: ["180 GSM", "100% Cotton", "Colors: Black, White"],
-                badge: "Best Seller",
-                img: "images/oversized_180.png"
+            // --- OVERSIZED CATEGORY ---
+            { 
+                name: "240 GSM French Terry", 
+                cat: "oversized", 
+                desc: "100% Cotton, Heavy Gauge, Bio-Washed.", 
+                details: "Colors: Maroon, Off-White, Beige, Lavender, Brown, Rose Pink, Charcoal, Army Green, Powder Blue, Red.",
+                badge: "Premium", 
+                img: "images/french_terry_240.png" 
             },
-            {
-                name: "240 GSM French Terry",
-                category: "Oversized",
-                desc: "Heavyweight, Bio-washed, Premium Quality. 12+ Colors.",
-                specs: ["240 GSM", "French Terry", "Colors: Beige, Lavender, Charcoal..."],
-                badge: "Premium",
-                img: "images/french_terry_240.png"
+            { 
+                name: "210 GSM French Terry", 
+                cat: "oversized", 
+                desc: "Bio-Washed Oversized, Premium Quality.", 
+                details: "Colors: Lavender, Beige, Red, Sage Green, Brown, Off-White, Orange, Navy.",
+                badge: "New", 
+                img: "images/french_terry_210.png" 
             },
-            {
-                name: "210 GSM French Terry",
-                category: "Oversized",
-                desc: "Premium Quality Bio-Washed Oversized. Slightly lighter feel.",
-                specs: ["210 GSM", "French Terry", "Colors: Sage Green, Navy, Red..."],
-                badge: "New",
-                img: "images/french_terry_210.png"
+            { 
+                name: "180 GSM Oversized Tshirt", 
+                cat: "oversized", 
+                desc: "100% Cotton Supercombed, Red Label Fabric.", 
+                details: "Colors: Black, White.",
+                badge: "Best Seller", 
+                img: "images/oversized_180.png" 
             },
-            {
-                name: "Boxy Fit Drop Shoulder",
-                category: "Oversized",
-                desc: "Streetwear special. Boxy cut with drop shoulders.",
-                specs: ["180 GSM", "Boxy Fit", "Colors: White, Black"],
-                badge: "Trending",
-                img: "images/boxy_fit.png"
+            { 
+                name: "Boxy Fit Drop Shoulder", 
+                cat: "oversized", 
+                desc: "180 GSM Streetwear Special, Boxy Cut.", 
+                details: "Colors: White, Black.",
+                badge: "Trending", 
+                img: "images/boxy_fit.png" 
             },
-            {
-                name: "Premium Polo T-Shirt",
-                category: "Polo",
-                desc: "Most Premium Honeycomb Polo. Corporate Ready.",
-                specs: ["220 GSM", "Honeycomb Weave", "Colors: White, Black, Navy, Maroon"],
-                badge: "Corporate",
-                img: "images/polo_premium.png"
+
+            // --- POLO CATEGORY ---
+            { 
+                name: "Premium Polo T-Shirt", 
+                cat: "polo", 
+                desc: "220 GSM Honeycomb Weave, 100% Cotton.", 
+                details: "Colors: White, Black, Navy, Maroon.",
+                badge: "Corporate", 
+                img: "images/polo_premium.png" 
             },
-            {
-                name: "Cotton Metty Polo",
-                category: "Polo",
-                desc: "Durable Pique Knit. 88% Cotton, 12% Polyester.",
-                specs: ["220 GSM", "Matty Fabric", "Colors: Grey, Charcoal, Black..."],
-                badge: "Economy",
-                img: "images/polo_metty.png"
+            { 
+                name: "Cotton Metty Polo", 
+                cat: "polo", 
+                desc: "220 GSM Pique Knit (88% Cotton, 12% Poly).", 
+                details: "Colors: Charcoal, Grey, Black, Navy, Maroon.",
+                badge: "Economy", 
+                img: "images/polo_metty.png" 
             },
-            {
-                name: "True Bio-Washed Round Neck",
-                category: "Regular",
-                desc: "Supercombed Premium Quality Red Label Fabric.",
-                specs: ["180 GSM", "True Bio-Wash", "Colors: Mustard, Bottle Green, Royal Blue..."],
-                badge: "Essential",
-                img: "images/bio_true.png"
+
+            // --- REGULAR CATEGORY ---
+            { 
+                name: "True Bio-Washed Round Neck", 
+                cat: "regular", 
+                desc: "180 GSM 100% Cotton, Supercombed.", 
+                details: "Colors: Mustard, Bottle Green, Royal Blue, Bhagwa, Grey, Lavender, Sky, Navy.",
+                badge: "Essential", 
+                img: "images/bio_true.png" 
             },
-            {
-                name: "Non-Bio Wash Round Neck",
-                category: "Regular",
-                desc: "Budget Friendly Regular Tshirt. 88% Cotton / 12% Poly.",
-                specs: ["180 GSM", "Regular Finish", "Colors: Red, Brown, Navy..."],
-                badge: "Budget",
-                img: "images/bio_regular.png"
+            { 
+                name: "Non-Bio Wash Round Neck", 
+                cat: "regular", 
+                desc: "180 GSM Regular (88% Cotton, 12% Poly).", 
+                details: "Colors: Red, Brown, Navy, Maroon, Charcoal, Rose Pink, Off-White.",
+                badge: "Budget", 
+                img: "images/bio_regular.png" 
             },
-            {
-                name: "Sublimation Tshirt",
-                category: "Regular",
-                desc: "Cotton Feel Polyester. Perfect for all-over printing.",
-                specs: ["200 GSM", "Polyester", "Color: White Only"],
-                badge: "Print Ready",
-                img: "images/sublimation.png"
+            { 
+                name: "Sublimation Tshirt", 
+                cat: "regular", 
+                desc: "200 GSM Cotton Feel Polyester. Print Ready.", 
+                details: "Color: White Only.",
+                badge: "For Printing", 
+                img: "images/sublimation.png" 
             }
         ];
 
-        // --- 2. RENDER FUNCTIONS ---
-        const grid = document.getElementById('product-grid');
-
-        function render(data) {
+        // --- RENDER LOGIC ---
+        function renderGrid(data, elementId) {
+            const grid = document.getElementById(elementId);
+            if(!grid) return;
             grid.innerHTML = "";
+            
             data.forEach(p => {
-                // Image fallback logic
-                const imgHTML = `<img src="${p.img}" alt="${p.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\\'fa-solid fa-shirt\\' style=\\'font-size:3rem; color:#ccc;\\'></i>'">`;
-
                 grid.innerHTML += `
                     <div class="card">
                         <div class="card-img">
                             <span class="badge">${p.badge}</span>
-                            ${imgHTML}
+                            <img src="${p.img}" alt="${p.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\\'fa-solid fa-shirt\\' style=\\'font-size:3rem; color:#ccc;\\'></i>'">
                         </div>
                         <div class="card-body">
                             <div class="card-title">${p.name}</div>
-                            <ul class="specs">
-                                ${p.specs.map(s => `<li><i class="fa-solid fa-check"></i> ${s}</li>`).join('')}
+                            <ul class="card-specs">
+                                <li><strong>Spec:</strong> ${p.desc}</li>
+                                <li style="font-size:0.8rem; color:#666; margin-top:5px;">${p.details}</li>
                             </ul>
-                            <div class="card-desc">${p.desc}</div>
                             <button class="btn-buy" onclick="whatsapp('${p.name}')">
-                                <i class="fa-brands fa-whatsapp"></i> Inquiry / Buy
+                                <i class="fa-brands fa-whatsapp"></i> Buy Now
                             </button>
                         </div>
                     </div>
@@ -299,50 +305,33 @@
             });
         }
 
-        // --- 3. FILTERING ---
-        function filter(cat, btn) {
-            document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
+        // --- INIT ---
+        renderGrid(products.slice(0, 3), 'grid-featured');
+        renderGrid(products.filter(p => p.cat === 'oversized'), 'grid-oversized');
+        renderGrid(products.filter(p => p.cat === 'polo'), 'grid-polo');
+        renderGrid(products.filter(p => p.cat === 'regular'), 'grid-regular');
 
-            if(cat === 'all') render(products);
-            else render(products.filter(p => p.category === cat));
-        }
-
-        document.getElementById('search').addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            render(products.filter(p => p.name.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term)));
-        });
-
-        // --- 4. NAVIGATION (SPA) ---
-        function showPage(id) {
-            // Hide all pages
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            // Show target
-            document.getElementById(id).classList.add('active');
+        // --- NAVIGATION ---
+        function goTo(pageId) {
+            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
             
-            // Update links
-            document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
-            const link = document.getElementById('link-' + id);
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            const link = document.getElementById('nav-' + pageId);
             if(link) link.classList.add('active');
             
             window.scrollTo(0,0);
         }
 
-        // --- 5. WHATSAPP LOGIC ---
+        // --- WHATSAPP ---
         function whatsapp(item) {
-            const url = `https://wa.me/919662726807?text=Hi Royal Ora Fashion, I am interested in: ${item}`;
-            window.open(url, '_blank');
+            window.open(`https://wa.me/919662726807?text=Hi, I want to buy: ${item}`, '_blank');
         }
-
         function sendInquiry() {
-            const name = document.getElementById('c-name').value;
-            const msg = document.getElementById('c-msg').value;
-            const text = `Name: ${name}%0aMessage: ${msg}`;
-            window.open(`https://wa.me/919662726807?text=${text}`, '_blank');
+            const n = document.getElementById('c-name').value;
+            const m = document.getElementById('c-msg').value;
+            window.open(`https://wa.me/919662726807?text=Name: ${n}%0aMsg: ${m}`, '_blank');
         }
-
-        // Init
-        render(products);
     </script>
 </body>
 </html>
